@@ -82,26 +82,33 @@
         path: /usr/bin/dcgm_exporter
       register: dcgm_exporter_binary
       changed_when: false
+      when: inventory_hostname in groups["spark"]
 
     - name: Get DCGM exporter latest release info
       uri:
         url: https://api.github.com/repos/NVIDIA/dcgm-exporter/releases/latest
         return_content: yes
       register: dcgm_release
-      when: not dcgm_exporter_binary.stat.exists
+      when: 
+        - not dcgm_exporter_binary.stat.exists
+        - inventory_hostname in groups["spark"]
       changed_when: false
 
     - name: Set DCGM exporter version
       set_fact:
         dcgm_version: "{{ dcgm_release.json.tag_name | regex_replace('^v', '') }}"
-      when: not dcgm_exporter_binary.stat.exists
+      when: 
+        - not dcgm_exporter_binary.stat.exists
+        - inventory_hostname in groups["spark"]
 
     - name: Download DCGM exporter
       get_url:
         url: "https://github.com/NVIDIA/dcgm-exporter/releases/download/v{{ dcgm_version }}/dcgm-exporter-{{ dcgm_version }}-linux-x86_64.tar.gz"
         dest: "/tmp/dcgm-exporter-{{ dcgm_version }}-linux-x86_64.tar.gz"
         mode: '0644'
-      when: not dcgm_exporter_binary.stat.exists
+      when: 
+        - not dcgm_exporter_binary.stat.exists
+        - inventory_hostname in groups["spark"]
       register: dcgm_download
 
     - name: Extract DCGM exporter archive
@@ -110,7 +117,9 @@
         dest: /tmp/
         remote_src: yes
         creates: "/tmp/dcgm-exporter-{{ dcgm_version }}-linux-x86_64/dcgm_exporter"
-      when: dcgm_download.changed
+      when: 
+        - dcgm_download.changed
+        - inventory_hostname in groups["spark"]
 
     - name: Copy DCGM exporter binary to /usr/bin
       copy:
@@ -118,14 +127,18 @@
         dest: /usr/bin/dcgm_exporter
         mode: '0755'
         remote_src: yes
-      when: dcgm_download.changed
+      when: 
+        - dcgm_download.changed
+        - inventory_hostname in groups["spark"]
       notify: Restart dcgm_exporter
 
     - name: Clean up DCGM exporter archive
       file:
         path: "/tmp/dcgm-exporter-{{ dcgm_version }}-linux-x86_64.tar.gz"
         state: absent
-      when: dcgm_download.changed
+      when: 
+        - dcgm_download.changed
+        - inventory_hostname in groups["spark"]
 
     - name: Create DCGM exporter systemd service
       copy:
@@ -143,6 +156,7 @@
 
           [Install]
           WantedBy=multi-user.target
+      when: inventory_hostname in groups["spark"]
       notify: Restart dcgm_exporter
 
     - name: Enable and start DCGM exporter service
@@ -151,6 +165,7 @@
         enabled: yes
         state: started
         daemon_reload: yes
+      when: inventory_hostname in groups["spark"]
 
   handlers:
     - name: Restart node_exporter

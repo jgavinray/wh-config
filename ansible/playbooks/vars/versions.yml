@@ -1,12 +1,10 @@
 # Prometheus Exporter Version Pins
 # Update these when upgrading exporters
 
-node_exporter:
-  version: "1.8.2"
+node_exporter_version: "1.8.2"
   # Latest stable 1.8.x series
-  # Download URL template: https://github.com/prometheus/node_exporter/releases/download/v{{ version }}/node_exporter-{{ version }}-linux-amd64.tar.gz
+  # Download URL template: https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}-linux-amd64.tar.gz
 
-dcgm_exporter:
-  version: "latest"
+dcgm_exporter_version: "latest"
   # Use NVIDIA DCGM latest stable release
-  # Download URL template: https://github.com/NVIDIA/dcgm-exporter/releases/download/v{{ version }}/dcgm-exporter-{{ version }}-linux-x86_64.tar.gz
+  # Download URL template: https://github.com/NVIDIA/dcgm-exporter/releases/download/v{{ dcgm_exporter_version }}/dcgm-exporter-{{ dcgm_exporter_version }}-linux-x86_64.tar.gz
