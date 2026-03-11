@@ -1,0 +1,13 @@
+[Unit]
+Description=Whisper HTTP Server (whisper.cpp)
+After=network.target
+
+[Service]
+Type=simple
+User=jgavinray
+ExecStart=/home/jgavinray/bin/whisper-server-wrapper.sh
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
