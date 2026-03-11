@@ -17,3 +17,46 @@ See individual files for deployment instructions.
 - **Zapp**: NVIDIA Jetson Orin (YOUR_ZAPP_LAN_IP), running whisper.cpp on GPU
 - **Model**: ggml-large-v3-turbo.bin at `/home/jgavinray/whisper.cpp/models/`
 - **Endpoint**: `http://YOUR_ZAPP_LAN_IP:8081/inference` (LAN accessible)
+
+## Prometheus Exporters
+
+### Overview
+
+Automated deployment of Prometheus exporters for fleet monitoring:
+- **node_exporter** (port 9100) — System metrics (CPU, memory, disk, network)
+- **dcgm_exporter** (port 9400) — NVIDIA GPU metrics (via DCGM)
+
+### Usage
+
+1. Edit `ansible/inventory.ini` and replace placeholder IPs with actual LAN addresses:
+   ```ini
+   [spark]
+   192.168.1.100 ansible_host=192.168.1.100
+
+   [zapp]
+   192.168.1.101 ansible_host=192.168.1.101
+   ```
+
+2. Run the playbook:
+   ```bash
+   cd ~/dev/wh-config
+   ansible-playbook -i ansible/inventory.ini ansible/playbooks/prometheus-exporters.yml
+   ```
+
+3. Dry-run (check mode) before actual deployment:
+   ```bash
+   ansible-playbook -i ansible/inventory.ini ansible/playbooks/prometheus-exporters.yml --check
+   ```
+
+### Idempotency
+
+The playbook is fully idempotent:
+- Skips download/install if binaries already exist
+- Only restarts services on config changes
+- Safe to run multiple times
+
+### Version Pins
+
+See `ansible/playbooks/vars/versions.yml` for exporter versions:
+- node_exporter: 1.8.x
+- dcgm_exporter: latest
