@@ -15,7 +15,7 @@ See individual files for deployment instructions.
 ## Architecture
 
 - **Zapp**: NVIDIA Jetson Orin (YOUR_ZAPP_LAN_IP), running whisper.cpp on GPU
-- **Model**: ggml-large-v3-turbo.bin at `/home/<user>/whisper.cpp/models/`
+- **Model**: ggml-large-v3-turbo.bin at `${HOME}/whisper.cpp/models/`
 - **Endpoint**: `http://YOUR_ZAPP_LAN_IP:8081/inference` (LAN accessible)
 
 ## Prometheus Exporters
@@ -60,3 +60,12 @@ The playbook is fully idempotent:
 See `ansible/playbooks/vars/versions.yml` for exporter versions:
 - node_exporter: 1.8.x
 - dcgm_exporter: latest
+
+## Variables & Placeholders
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `${USER}` | Local username | jgavinray |
+| `${HOME}` | Home directory | /Users/jgavinray |
+| `YOUR_SPARK_LAN_IP` | Spark node LAN IP | 192.168.x.x |
+| `YOUR_ZAPP_LAN_IP` | Zapp node LAN IP | 192.168.x.x |
