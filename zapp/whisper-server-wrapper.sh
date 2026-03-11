@@ -1,6 +1,9 @@
 #!/bin/bash
 # Wrapper for whisper-server that manages llama-server lifecycle
 
+# User-specific paths (configure for your setup)
+WHISPER_DIR="$HOME/whisper.cpp"
+
 # Function to stop llama-server
 stop_llama() {
     sudo systemctl stop llama-server.service 2>/dev/null || true
@@ -19,4 +22,4 @@ trap 'start_llama' EXIT
 stop_llama
 
 # Run whisper-server (don't use exec so trap can fire)
-/home/jgavinray/whisper.cpp/build/bin/whisper-server --host 0.0.0.0 --port 8081 --model /home/jgavinray/whisper.cpp/models/ggml-large-v3-turbo.bin
+"$WHISPER_DIR/build/bin/whisper-server" --host 0.0.0.0 --port 8081 --model "$WHISPER_DIR/models/ggml-large-v3-turbo.bin"

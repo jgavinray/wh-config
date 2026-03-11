@@ -15,7 +15,7 @@ See individual files for deployment instructions.
 ## Architecture
 
 - **Zapp**: NVIDIA Jetson Orin (YOUR_ZAPP_LAN_IP), running whisper.cpp on GPU
-- **Model**: ggml-large-v3-turbo.bin at `/home/jgavinray/whisper.cpp/models/`
+- **Model**: ggml-large-v3-turbo.bin at `/home/<user>/whisper.cpp/models/`
 - **Endpoint**: `http://YOUR_ZAPP_LAN_IP:8081/inference` (LAN accessible)
 
 ## Prometheus Exporters
