@@ -5,7 +5,7 @@ Setup guide for whisper.cpp on NVIDIA Jetson Orin (aarch64, JetPack 6, CUDA 12.6
 ## Hardware
 
 - **Device**: NVIDIA Jetson Orin
-- **Hostname**: zapp (YOUR_ZAPP_LAN_IP LAN, Tailscale YOUR_ZAPP_TAILSCALE_IP)
+- **Hostname**: zapp (YOUR_ZAPP_LAN_IP LAN, YOUR_ZAPP_TAILSCALE_IP)
 - **CUDA**: 12.6, compute capability sm_87
 - **RAM**: 7.4GB unified memory (shared CPU/GPU)
 

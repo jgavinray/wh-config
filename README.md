@@ -31,10 +31,10 @@ Automated deployment of Prometheus exporters for fleet monitoring:
 1. Edit `ansible/inventory.ini` and replace placeholder IPs with actual LAN addresses:
    ```ini
    [spark]
-   192.168.1.100 ansible_host=192.168.1.100
+   YOUR_SPARK_LAN_IP ansible_host=YOUR_SPARK_LAN_IP
 
    [zapp]
-   192.168.1.101 ansible_host=192.168.1.101
+   YOUR_ZAPP_LAN_IP ansible_host=YOUR_ZAPP_LAN_IP
    ```
 
 2. Run the playbook:
