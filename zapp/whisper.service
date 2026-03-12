@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 # User should be set to the actual username during deployment
-# Example: User=jgavinray or User=your_username
+# Example: User=<username> or User=your_username
 User=<username>
 ExecStart=${HOME}/bin/whisper-server-wrapper.sh
 Restart=on-failure

@@ -65,7 +65,7 @@ See `ansible/playbooks/vars/versions.yml` for exporter versions:
 
 | Variable | Description | Example |
 |----------|-------------|---------|
-| `${USER}` | Local username | jgavinray |
-| `${HOME}` | Home directory | /Users/jgavinray |
+| `${USER}` | Local username | `<your_username>` |
+| `${HOME}` | Home directory | `/home/<your_username>` or `/Users/<your_username>` |
 | `YOUR_SPARK_LAN_IP` | Spark node LAN IP | 192.168.x.x |
 | `YOUR_ZAPP_LAN_IP` | Zapp node LAN IP | 192.168.x.x |
